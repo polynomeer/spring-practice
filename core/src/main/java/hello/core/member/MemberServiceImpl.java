@@ -15,7 +15,7 @@ public class MemberServiceImpl implements MemberService {
 
     //    private final MemberRepository memberRepository = new MemoryMemberRepository();
 
-    /**
+    /*
      * ✓ DIP 원칙을 잘 지키고 있는가?
      * MemberServiceImpl은 MemberService라는 인터페이스를 구현하므로 인터페이스에 의존한다.
      * 하지만 MemberRepositry는 구현체인 MemoryMemberRepository에 의존한다.

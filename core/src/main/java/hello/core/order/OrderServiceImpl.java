@@ -7,21 +7,44 @@ import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
-@Configuration
+@Component
 public class OrderServiceImpl implements OrderService {
 
     private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy;
 
+//    1. 필드주입 -> 테스트하기 까다롭고, 안티패턴이라서 권장하지 않는다.
+//    @Autowired private final MemberRepository memberRepository;
+//    @Autowired private final DiscountPolicy discountPolicy;
+
+//    2. 생성자 주입 -> 여러가지로 편리하므로 주로 사용한다.
     @Autowired
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
 
-    /**
+//    3. 수정자 주입 -> 웬만하면 잘 사용하지 않는다.
+//    @Autowired
+//    public void setMemberRepository(MemberRepository memberRepository) {
+//        this.memberRepository = memberRepository;
+//    }
+//
+//    @Autowired
+//    public void setDiscountPolicy(DiscountPolicy discountPolicy) {
+//        this.discountPolicy = discountPolicy;
+//    }
+
+//    4. 일반 메서드 주입 -> 수정자 주입과 큰 차이가 없다.
+//    @Autowired
+//    public void init(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+//        this.memberRepository = memberRepository;
+//        this.discountPolicy = discountPolicy;
+//    }
+
+    /*
      * ✓ 관심사의 분리
      * 애플리케이션이 하나의 공연이라면 OrderServiceImpl에서 직접 new RixDiscountPolicy() 생성하는 것은
      * 로미오와 줄리엣 공연의 로미오 역할 배우가 직접 줄리엣 역할의 배우를 섭외하는 것과 같다.
@@ -38,7 +61,7 @@ public class OrderServiceImpl implements OrderService {
 //    private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
 //    private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
 
-    /**
+    /*
      * ✓ DIP 위반
      * DIP를 잘 지키는 것 처럼 보이지만 위반하였다.
      * FixDiscountPolicy 에서 RateDiscountPolicy로 구현체를 변경하기 위해서
@@ -63,7 +86,7 @@ public class OrderServiceImpl implements OrderService {
     }
 }
 
-/**
+/*
  * ✓ SRP(Single Responsibility Principle)
  * 할인에 대한 변경이 발생하면 할인 부분만 변경하면 된다. 주문에서 변경사항이 일어나지 않는다.
  * 따라서 이 부분은 단일 책임 원칙이 잘 지켜진 설계가 되었다고 할 수 있다.
