@@ -1,5 +1,8 @@
 package hello.core;
 
+import hello.core.member.MemberRepository;
+import hello.core.member.MemoryMemberRepository;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
@@ -24,5 +27,19 @@ import org.springframework.context.annotation.FilterType;
         excludeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = Configuration.class)
 )
 public class AutoAppConfig {
+
+    /*
+    @Bean(name = "memoryMemberRepository")
+    MemberRepository memberRepository() {
+        return new MemoryMemberRepository();
+    }
+    */
+
+    /*
+     * 수동 빈이 자동 빈(@Component)보다 우선권을 갖는다.
+     * 하지만 수동과 자동이 섞여있으면 잡기어려운 버그가 발생할 수 있다.
+     * 그래서 최근 스프링부트에서는 애매한 것을 아예 에러로 던져버린다.
+     * 오버라이딩을 기본적으로 차단함으로써 막고자한다.
+     */
 
 }
