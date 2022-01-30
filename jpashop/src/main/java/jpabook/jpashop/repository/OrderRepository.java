@@ -29,7 +29,7 @@ public class OrderRepository {
 
         return em.createQuery("select o from Order o join o.member m" +
                         " where o.status = :status" +
-                        " and m.username like :username", Order.class)
+                        " and m.name like :username", Order.class)
                 .setParameter("status", orderSearch.getOrderStatus())
                 .setParameter("username", orderSearch.getMemberName())
                 .setMaxResults(1000)
