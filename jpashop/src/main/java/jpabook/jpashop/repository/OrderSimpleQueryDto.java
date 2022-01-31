@@ -22,4 +22,12 @@ public class OrderSimpleQueryDto {
         this.orderStatus = order.getStatus();
         this.address = order.getDelivery().getAddress();    // LAZY 초기화
     }
+
+    public OrderSimpleQueryDto(Long orderId, String name, LocalDateTime orderDate, OrderStatus orderStatus, Address address) {
+        this.orderId = orderId;
+        this.name = name;
+        this.orderDate = orderDate;
+        this.orderStatus = orderStatus;
+        this.address = address;
+    }
 }
