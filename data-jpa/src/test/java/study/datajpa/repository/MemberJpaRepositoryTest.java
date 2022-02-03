@@ -61,7 +61,7 @@ class MemberJpaRepositoryTest {
     }
 
     @Test
-    public void findByUsernameAndAgeGreaterThen() {
+    public void findByUsernameAndAgeGreaterThan() {
         Member member1 = new Member("memberA", 10);
         Member member2 = new Member("memberA", 20);
         memberJpaRepository.save(member1);
