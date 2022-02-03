@@ -89,4 +89,16 @@ class MemberRepositoryTest {
         List<Member> top3By = memberRepository.findTop3By();
         System.out.println("top3By = " + top3By);
     }
+
+    @Test
+    public void testNamedQuery() {
+        Member member1 = new Member("memberA", 10);
+        Member member2 = new Member("memberA", 20);
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+
+        List<Member> result = memberRepository.findByUsername("memberA");
+        Member findMember = result.get(0);
+        assertThat(findMember).isEqualTo(member1);
+    }
 }
