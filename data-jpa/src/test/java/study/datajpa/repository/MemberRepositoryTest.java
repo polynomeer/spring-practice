@@ -77,4 +77,16 @@ class MemberRepositoryTest {
         assertThat(result.get(0).getAge()).isEqualTo(20);
         assertThat(result.size()).isEqualTo(1);
     }
+
+    @Test
+    public void findHelloBy() {
+        List<Member> helloBy = memberRepository.findHelloBy();
+        System.out.println("helloBy = " + helloBy);
+    }
+
+    @Test
+    public void findTop3By() {
+        List<Member> top3By = memberRepository.findTop3By();
+        System.out.println("top3By = " + top3By);
+    }
 }
