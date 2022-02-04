@@ -32,6 +32,9 @@ class MemberRepositoryTest {
     @Autowired
     TeamRepository teamRepository;
 
+    @Autowired
+    MemberQueryRepository memberQueryRepository;
+
     @PersistenceContext
     EntityManager em;
 
@@ -316,6 +319,27 @@ class MemberRepositoryTest {
 
     @Test
     public void callCustom() {
+        // given
+        memberRepository.save(new Member("member1", 10));
+        memberRepository.save(new Member("member2", 19));
+
         List<Member> result = memberRepository.findMemberCustom();
+
+        for (Member member : result) {
+            System.out.println("member = " + member);
+        }
+    }
+
+    @Test
+    public void callNonJpaRepository() {
+        // given
+        memberRepository.save(new Member("member1", 10));
+        memberRepository.save(new Member("member2", 19));
+
+        List<Member> members = memberQueryRepository.finaAllMembers();
+
+        for (Member member : members) {
+            System.out.println("member = " + member);
+        }
     }
 }
