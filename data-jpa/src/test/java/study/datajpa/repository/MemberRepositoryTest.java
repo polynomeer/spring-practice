@@ -105,12 +105,25 @@ class MemberRepositoryTest {
     @Test
     public void testQuery() {
         Member member1 = new Member("memberA", 10);
-        Member member2 = new Member("memberA", 20);
+        Member member2 = new Member("memberB", 20);
         memberRepository.save(member1);
         memberRepository.save(member2);
 
         List<Member> result = memberRepository.findUser("memberA", 10);
         Member findMember = result.get(0);
         assertThat(findMember).isEqualTo(member1);
+    }
+
+    @Test
+    public void findUsernameList() {
+        Member member1 = new Member("memberA", 10);
+        Member member2 = new Member("memberB", 20);
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+
+        List<String> usernameList = memberRepository.findUsernameList();
+        for (String s : usernameList) {
+            System.out.println("s = " + s);
+        }
     }
 }
