@@ -284,4 +284,19 @@ class MemberRepositoryTest {
             // select Member 하면 Team을 조회할 때 Lazy로 추가 쿼리실행 -> N + 1 문제 발생
         }
     }
+
+    @Test
+    public void queryHint() {
+        // given
+        Member member = new Member("member1", 10);
+        memberRepository.save(member);
+        em.flush();
+        em.clear();
+
+        // when
+        Member findMember = memberRepository.findReadOnlyByUsername("member1");
+        findMember.setUsername("member2"); // 이 변경사항이 반영되지않음 (dirty checking x)
+
+        em.flush();
+    }
 }
