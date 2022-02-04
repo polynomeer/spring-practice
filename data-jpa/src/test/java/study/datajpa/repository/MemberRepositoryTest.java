@@ -194,14 +194,10 @@ class MemberRepositoryTest {
 
         // when
         Page<Member> page = memberRepository.findByAge(age, pageRequest);
+//        Page<MemberDto> toMap = page.map(m -> new MemberDto(m.getId(), m.getUsername(), null));
 
         // then
         List<Member> content = page.getContent();
-        long totalElements = page.getTotalElements();
-        for (Member member : content) {
-            System.out.println("member = " + member);
-        }
-        System.out.println("totalElements = " + totalElements);
 
         assertThat(content.size()).isEqualTo(3);
         assertThat(page.getTotalElements()).isEqualTo(5);
