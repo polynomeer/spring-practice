@@ -3,25 +3,21 @@ package study.datajpa.repository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.stereotype.Repository;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import study.datajpa.dto.MemberDto;
 import study.datajpa.entity.Member;
 import study.datajpa.entity.Team;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
-@Rollback(false)
+//@Rollback(false)
 class MemberRepositoryTest {
 
     @Autowired
@@ -159,5 +155,24 @@ class MemberRepositoryTest {
         for (Member member : result) {
             System.out.println("member = " + member);
         }
+    }
+
+    @Test
+    public void returnType() {
+        Member member1 = new Member("memberA", 10);
+        Member member2 = new Member("memberB", 20);
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+
+        List<Member> members = memberRepository.findListByUsername("memberA");
+        for (Member member : members) {
+            System.out.println("member = " + member);
+        }
+
+        Member member = memberRepository.findMemberByUsername("memberA");
+        System.out.println("member = " + member);
+
+        Optional<Member> optional = memberRepository.findOptionalByUsername("memberA");
+        System.out.println("optional = " + optional);
     }
 }
