@@ -437,5 +437,14 @@ class MemberRepositoryTest {
         for (UsernameOnlyDto usernameOnly : result) {
             System.out.println("usernameOnly = " + usernameOnly);
         }
+
+        List<NestedClosedProjections> nestedClosedProjections = memberRepository.findProjectionsDtoByUsername("member1", NestedClosedProjections.class);
+        for (NestedClosedProjections nestedClosedProjection : nestedClosedProjections) {
+            String username = nestedClosedProjection.getUsername();
+            System.out.println("username = " + username);
+            String teamName = nestedClosedProjection.getTeam().getName();
+            System.out.println("teamName = " + teamName);
+        }
+
     }
 }
