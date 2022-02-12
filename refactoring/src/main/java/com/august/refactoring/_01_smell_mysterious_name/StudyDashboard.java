@@ -1,4 +1,4 @@
-package com.august.refactoring._01_smell_mysterious_name._01_before;
+package com.august.refactoring._01_smell_mysterious_name;
 
 import org.kohsuke.github.GHIssue;
 import org.kohsuke.github.GHIssueComment;
