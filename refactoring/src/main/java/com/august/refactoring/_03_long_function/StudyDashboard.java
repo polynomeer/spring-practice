@@ -62,13 +62,9 @@ public class StudyDashboard {
     }
 
     private Participant findParticipant(String username, List<Participant> participants) {
-        Participant participant = null;
-        if (isNewParticipant(username, participants)) {
-            participant = createNewParticipant(username, participants);
-        } else {
-            participant = findExistingParcitipant(username, participants);
-        }
-        return participant;
+        return isNewParticipant(username, participants) ?
+                createNewParticipant(username, participants) :
+                findExistingParcitipant(username, participants);
     }
 
     private Participant findExistingParcitipant(String username, List<Participant> participants) {
