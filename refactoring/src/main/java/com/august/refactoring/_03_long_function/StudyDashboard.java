@@ -33,7 +33,7 @@ public class StudyDashboard {
 
     private void print() throws IOException, InterruptedException {
         checkGithubIssues(getGhRepository());
-        new StudyPrinter(this.totalNumberOfEvents, this.participants, PrinterMode.CVS).execute();
+        new ConsolePrinter(this.totalNumberOfEvents, this.participants).execute();
         printFirstParticipants();
     }
 
