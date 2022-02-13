@@ -5,10 +5,7 @@ import org.kohsuke.github.GHIssueComment;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
 
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
@@ -65,15 +62,30 @@ public class StudyDashboard {
     }
 
     private Participant findParticipant(String username, List<Participant> participants) {
-        boolean isNewUser = participants.stream().noneMatch(p -> p.username().equals(username));
         Participant participant = null;
-        if (isNewUser) {
-            participant = new Participant(username);
-            participants.add(participant);
+        if (isNewParticipant(username, participants)) {
+            participant = createNewParticipant(username, participants);
         } else {
-            participant = participants.stream().filter(p -> p.username().equals(username)).findFirst().orElseThrow();
+            participant = findExistingParcitipant(username, participants);
         }
         return participant;
+    }
+
+    private Participant findExistingParcitipant(String username, List<Participant> participants) {
+        Participant participant;
+        participant = participants.stream().filter(p -> p.username().equals(username)).findFirst().orElseThrow();
+        return participant;
+    }
+
+    private Participant createNewParticipant(String username, List<Participant> participants) {
+        Participant participant;
+        participant = new Participant(username);
+        participants.add(participant);
+        return participant;
+    }
+
+    private boolean isNewParticipant(String username, List<Participant> participants) {
+        return participants.stream().noneMatch(p -> p.username().equals(username));
     }
 
 }
