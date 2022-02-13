@@ -32,11 +32,14 @@ public class StudyDashboard {
     }
 
     private void print() throws IOException, InterruptedException {
-        GitHub gitHub = GitHub.connect();
-        GHRepository repository = gitHub.getRepository("whiteship/live-study");
-        checkGithubIssues(repository);
+        checkGithubIssues(getGhRepository());
         new StudyPrinter(this.totalNumberOfEvents, participants).execute();
         printFirstParticipants();
+    }
+
+    private GHRepository getGhRepository() throws IOException {
+        GitHub gitHub = GitHub.connect();
+        return gitHub.getRepository("whiteship/live-study");
     }
 
     private void checkGithubIssues(GHRepository repository) throws InterruptedException {
