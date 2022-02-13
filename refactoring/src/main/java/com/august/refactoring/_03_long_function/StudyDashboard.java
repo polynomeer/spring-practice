@@ -64,10 +64,10 @@ public class StudyDashboard {
     private Participant findParticipant(String username, List<Participant> participants) {
         return isNewParticipant(username, participants) ?
                 createNewParticipant(username, participants) :
-                findExistingParcitipant(username, participants);
+                findExistingParticipant(username, participants);
     }
 
-    private Participant findExistingParcitipant(String username, List<Participant> participants) {
+    private Participant findExistingParticipant(String username, List<Participant> participants) {
         Participant participant;
         participant = participants.stream().filter(p -> p.username().equals(username)).findFirst().orElseThrow();
         return participant;
