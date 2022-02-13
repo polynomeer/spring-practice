@@ -10,28 +10,71 @@ public class StudyPrinter {
 
     private final int totalNumberOfEvents;
     private final List<Participant> participants;
+    private final PrinterMode printerMode;
 
-    public StudyPrinter(int totalNumberOfEvents, List<Participant> participants) {
+    public StudyPrinter(int totalNumberOfEvents, List<Participant> participants, PrinterMode printerMode) {
         this.totalNumberOfEvents = totalNumberOfEvents;
         this.participants = participants;
+        this.participants.sort(Comparator.comparing(Participant::username));
+        this.printerMode = printerMode;
     }
 
     public void execute() throws IOException {
-        try (FileWriter fileWriter = new FileWriter("participants.md");
-             PrintWriter writer = new PrintWriter(fileWriter)) {
-            this.participants.sort(Comparator.comparing(Participant::username));
+        switch (printerMode) {
+            case CVS -> {
+                try (FileWriter fileWriter = new FileWriter("participants.cvs");
+                     PrintWriter writer = new PrintWriter(fileWriter)) {
+                    writer.println(cvsHeader(this.participants.size()));
+                    this.participants.forEach(p -> {
+                        writer.println(getCvsForParticipant(p));
+                    });
+                }
+            }
+            case CONSOLE -> {
+                this.participants.forEach(p -> {
+                    System.out.printf("%s %s:%s\n", p.username(), checkMark(p), p.getRate(this.totalNumberOfEvents));
+                });
+            }
+            case MARKDOWN -> {
+                try (FileWriter fileWriter = new FileWriter("participants.md");
+                     PrintWriter writer = new PrintWriter(fileWriter)) {
 
-            writer.print(header(this.participants.size()));
+                    writer.print(header(this.participants.size()));
 
-            this.participants.forEach(p -> {
-                String markdownForHomework = getMarkdownForParticipant(p);
-                writer.print(markdownForHomework);
-            });
+                    this.participants.forEach(p -> {
+                        String markdownForHomework = getMarkdownForParticipant(p);
+                        writer.print(markdownForHomework);
+                    });
+                }
+            }
         }
     }
 
+    private String getCvsForParticipant(Participant participant) {
+        StringBuilder line = new StringBuilder();
+        line.append(participant.username());
+        for (int i = 1 ; i <= this.totalNumberOfEvents ; i++) {
+            if(participant.homework().containsKey(i) && participant.homework().get(i)) {
+                line.append(",O");
+            } else {
+                line.append(",X");
+            }
+        }
+        line.append(",").append(participant.getRate(this.totalNumberOfEvents));
+        return line.toString();
+    }
+
+    private String cvsHeader(int totalNumberOfParticipants) {
+        StringBuilder header = new StringBuilder(String.format("참여자 (%d),", totalNumberOfParticipants));
+        for (int index = 1; index <= this.totalNumberOfEvents; index++) {
+            header.append(String.format("%d주차,", index));
+        }
+        header.append("참석율");
+        return header.toString();
+    }
+
     private String getMarkdownForParticipant(Participant p) {
-        return String.format("| %s %s | %.2f%% |\n", p.username(), checkMark(p, this.totalNumberOfEvents), p.getRate(this.totalNumberOfEvents));
+        return String.format("| %s %s | %.2f%% |\n", p.username(), checkMark(p), p.getRate(this.totalNumberOfEvents));
     }
 
     /**
@@ -55,9 +98,9 @@ public class StudyPrinter {
     /**
      * |:white_check_mark:|:white_check_mark:|:white_check_mark:|:x:|
      */
-    private String checkMark(Participant p, int totalEvents) {
+    private String checkMark(Participant p) {
         StringBuilder line = new StringBuilder();
-        for (int i = 1; i <= totalEvents; i++) {
+        for (int i = 1; i <= this.totalNumberOfEvents; i++) {
             if (p.homework().containsKey(i) && p.homework().get(i)) {
                 line.append("|:white_check_mark:");
             } else {
