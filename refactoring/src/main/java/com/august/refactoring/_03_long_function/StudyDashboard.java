@@ -83,16 +83,8 @@ public class StudyDashboard {
         }
     }
 
-    private double getRate(Participant p) {
-        long count = p.homework().values().stream()
-                .filter(v -> v == true)
-                .count();
-        double rate = count * 100 / this.totalNumberOfEvents;
-        return rate;
-    }
-
     private String getMarkdownForParticipant(Participant p) {
-        return String.format("| %s %s | %.2f%% |\n", p.username(), checkMark(p, this.totalNumberOfEvents), getRate(p));
+        return String.format("| %s %s | %.2f%% |\n", p.username(), checkMark(p, this.totalNumberOfEvents), p.getRate(this.totalNumberOfEvents));
     }
 
     /**
