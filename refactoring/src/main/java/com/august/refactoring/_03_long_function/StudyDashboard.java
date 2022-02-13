@@ -6,6 +6,8 @@ import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
@@ -15,9 +17,13 @@ import java.util.concurrent.Executors;
 public class StudyDashboard {
 
     private final int totalNumberOfEvents;
+    private final List<Participant> participants;
+    private final Participant[] firstParticipantsForEachEvent;
 
     public StudyDashboard(int totalNumberOfEvents) {
         this.totalNumberOfEvents = totalNumberOfEvents;
+        participants = new CopyOnWriteArrayList<>();
+        firstParticipantsForEachEvent = new Participant[this.totalNumberOfEvents];
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -28,7 +34,6 @@ public class StudyDashboard {
     private void print() throws IOException, InterruptedException {
         GitHub gitHub = GitHub.connect();
         GHRepository repository = gitHub.getRepository("whiteship/live-study");
-        List<Participant> participants = new CopyOnWriteArrayList<>();
 
         ExecutorService service = Executors.newFixedThreadPool(8);
         CountDownLatch latch = new CountDownLatch(totalNumberOfEvents);
@@ -42,11 +47,20 @@ public class StudyDashboard {
                         GHIssue issue = repository.getIssue(eventId);
                         List<GHIssueComment> comments = issue.getComments();
 
+                        Date firstCreatedAt = null;
+                        Participant first = null;
+
                         for (GHIssueComment comment : comments) {
-                            String username = comment.getUserName();
-                            findParticipant(username, participants).setHomeworkDone(eventId);
+                            Participant participant = findParticipant(comment.getUserName(), participants);
+                            participant.setHomeworkDone(eventId);
+
+                            if (firstCreatedAt == null || comment.getCreatedAt().before(firstCreatedAt)) {
+                                firstCreatedAt = comment.getCreatedAt();
+                                first = participant;
+                            }
                         }
 
+                        firstParticipantsForEachEvent[eventId - 1] = first;
                         latch.countDown();
                     } catch (IOException e) {
                         throw new IllegalArgumentException(e);
@@ -59,6 +73,11 @@ public class StudyDashboard {
         service.shutdown();
 
         new StudyPrinter(this.totalNumberOfEvents, participants).execute();
+        printFirstParticipants();
+    }
+
+    private void printFirstParticipants() {
+        Arrays.stream(this.firstParticipantsForEachEvent).forEach(p -> System.out.println(p.username()));
     }
 
     private Participant findParticipant(String username, List<Participant> participants) {
