@@ -2,7 +2,8 @@ package com.august.refactoring._06_mutable_data._21_replace_derived_variable_wit
 
 public class Discount {
 
-    private double discountedTotal;
+    private double discountedTotal; // derived variable
+
     private double discount;
 
     private double baseTotal;
@@ -12,6 +13,7 @@ public class Discount {
     }
 
     public double getDiscountedTotal() {
+        assert this.discountedTotal == this.baseTotal - this.discount;
         return this.discountedTotal;
     }
 
