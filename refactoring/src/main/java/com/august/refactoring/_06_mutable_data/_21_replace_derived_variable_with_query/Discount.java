@@ -13,12 +13,8 @@ public class Discount {
     }
 
     public double getDiscountedTotal() {
-        assert this.discountedTotal == calculatedDiscountedTotal();
+        assert this.discountedTotal == this.baseTotal - this.discount;
         return this.discountedTotal;
-    }
-
-    private double calculatedDiscountedTotal() {
-        return this.baseTotal - this.discount;
     }
 
     public void setDiscount(double number) {
