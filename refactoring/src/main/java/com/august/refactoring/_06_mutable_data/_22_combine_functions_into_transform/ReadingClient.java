@@ -12,4 +12,12 @@ public class ReadingClient {
     protected double baseRate(Month month, Year year) {
         return 10;
     }
+
+    protected EnrichReading enrichReading(Reading reading) {
+        return new EnrichReading(reading, calculateBaseCharge(reading));
+    }
+
+    private double calculateBaseCharge(Reading reading) {
+        return baseRate(reading.month(), reading.year()) * reading.quantity();
+    }
 }
