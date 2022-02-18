@@ -5,20 +5,14 @@ import java.util.List;
 
 public class ProductionPlan {
 
-    private double production;
     private List<Double> adjustments = new ArrayList<>();
 
     public void applyAdjustment(double adjustment) {
         this.adjustments.add(adjustment);
-        this.production += adjustment;
     }
 
     public double getProduction() {
-        assert this.production == calculatedProduction();
-        return this.production;
+        return this.adjustments.stream().mapToDouble(Double::valueOf).sum();
     }
 
-    private double calculatedProduction() {
-        return this.adjustments.stream().reduce((double) 0, Double::sum);
-    }
 }
