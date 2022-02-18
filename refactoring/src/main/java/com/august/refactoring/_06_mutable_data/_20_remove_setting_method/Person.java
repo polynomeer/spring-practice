@@ -4,7 +4,11 @@ public class Person {
 
     private String name;
 
-    private int id;
+    private final int id;
+
+    public Person(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -18,7 +22,4 @@ public class Person {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 }
