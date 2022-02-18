@@ -14,6 +14,11 @@ public class ProductionPlan {
     }
 
     public double getProduction() {
+        assert this.production == calculatedProduction();
         return this.production;
+    }
+
+    private double calculatedProduction() {
+        return this.adjustments.stream().reduce((double) 0, Double::sum);
     }
 }
