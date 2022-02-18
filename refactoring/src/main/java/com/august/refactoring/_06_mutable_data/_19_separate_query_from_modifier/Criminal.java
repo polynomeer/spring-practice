@@ -10,14 +10,8 @@ public class Criminal {
      * @param people 검사할 사람
      */
     public void alertForMiscreant(List<Person> people) {
-        for (Person p : people) {
-            if (p.getName().equals("Don")) {
-                setOffAlarms();
-            }
-
-            if (p.getName().equals("John")) {
-                setOffAlarms();
-            }
+        if (findMiscreant(people).isBlank()) {
+            setOffAlarms();
         }
     }
 
