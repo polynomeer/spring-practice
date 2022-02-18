@@ -7,7 +7,7 @@ public class Client2 extends ReadingClient {
 
     public Client2(Reading reading) {
         this.base = enrichReading(reading).baseCharge();
-        this.taxableCharge = Math.max(0, this.base - taxThreshold(reading.year()));
+        this.taxableCharge = enrichReading(reading).taxableCharge();
     }
 
     public double getBase() {

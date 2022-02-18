@@ -14,10 +14,14 @@ public class ReadingClient {
     }
 
     protected EnrichReading enrichReading(Reading reading) {
-        return new EnrichReading(reading, calculateBaseCharge(reading));
+        return new EnrichReading(reading, baseCharge(reading), taxableCharge(reading));
     }
 
-    private double calculateBaseCharge(Reading reading) {
+    private double taxableCharge(Reading reading) {
+        return Math.max(0, baseCharge(reading) - taxThreshold(reading.year()));
+    }
+
+    private double baseCharge(Reading reading) {
         return baseRate(reading.month(), reading.year()) * reading.quantity();
     }
 }
