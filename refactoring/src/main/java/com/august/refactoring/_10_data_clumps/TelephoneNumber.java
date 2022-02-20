@@ -2,32 +2,32 @@ package com.august.refactoring._10_data_clumps;
 
 public class TelephoneNumber {
 
-    private String personalAreaCode;
-    private String personalNumber;
+    private String areaCode;
+    private String number;
 
-    public TelephoneNumber(String personalAreaCode, String personalNumber) {
-        this.personalAreaCode = personalAreaCode;
-        this.personalNumber = personalNumber;
+    public TelephoneNumber(String areaCode, String number) {
+        this.areaCode = areaCode;
+        this.number = number;
     }
 
-    public String getPersonalAreaCode() {
-        return personalAreaCode;
+    public String getAreaCode() {
+        return areaCode;
     }
 
-    public void setPersonalAreaCode(String personalAreaCode) {
-        this.personalAreaCode = personalAreaCode;
+    public void setAreaCode(String areaCode) {
+        this.areaCode = areaCode;
     }
 
-    public String getPersonalNumber() {
-        return personalNumber;
+    public String getNumber() {
+        return number;
     }
 
-    public void setPersonalNumber(String personalNumber) {
-        this.personalNumber = personalNumber;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     @Override
     public String toString() {
-        return this.personalAreaCode + "-" + this.personalNumber;
+        return this.areaCode + "-" + this.number;
     }
 }
