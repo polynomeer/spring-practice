@@ -19,8 +19,7 @@ public class Booking {
     }
 
     public static Booking createPremiumBooking(Show show, LocalDateTime time, PremiumExtra extra) {
-        PremiumBooking booking = new PremiumBooking(show, time, extra);
-        // PremiumDelegate로 모두 옮기고 PremiumBooking을 삭제하기 위한 중간과정에 필요한 장치
+        Booking booking = createBooking(show, time);
         booking.premiumDelegate = new PremiumDelegate(booking, extra);
         return booking;
     }
