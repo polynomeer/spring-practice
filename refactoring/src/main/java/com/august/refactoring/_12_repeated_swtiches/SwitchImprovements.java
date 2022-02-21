@@ -7,10 +7,13 @@ public class SwitchImprovements {
         switch (type) {
             case "full-time":
                 result = 120;
+                break;
             case "part-time":
                 result = 80;
+                break;
             case "temporal":
                 result = 32;
+                break;
             default:
                 result = 0;
         }
