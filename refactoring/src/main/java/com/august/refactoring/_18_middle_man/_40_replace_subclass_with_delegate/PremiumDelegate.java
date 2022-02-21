@@ -9,4 +9,8 @@ public class PremiumDelegate {
         this.host = host;
         this.extra = extra;
     }
+
+    public boolean hasTalkback() {
+        return this.host.show.hasOwnProperty("talkback");
+    }
 }

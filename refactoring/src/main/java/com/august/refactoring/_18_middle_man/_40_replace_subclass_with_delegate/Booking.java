@@ -22,11 +22,12 @@ public class Booking {
         PremiumBooking booking = new PremiumBooking(show, time, extra);
         // PremiumDelegate로 모두 옮기고 PremiumBooking을 삭제하기 위한 중간과정에 필요한 장치
         booking.premiumDelegate = new PremiumDelegate(booking, extra);
-        return new PremiumBooking(show, time, extra);
+        return booking;
     }
 
     public boolean hasTalkback() {
-        return this.show.hasOwnProperty("talkback") && !this.isPeakDay();
+        return (this.premiumDelegate != null) ? this.premiumDelegate.hasTalkback() :
+                this.show.hasOwnProperty("talkback") && !this.isPeakDay();
     }
 
     protected boolean isPeakDay() {
