@@ -38,7 +38,7 @@ public class Booking {
     public double basePrice() {
         double result = this.show.getPrice();
         if (this.isPeakDay()) result += Math.round(result * 0.15);
-        return result;
+        return (this.premiumDelegate != null) ? this.premiumDelegate.extendBasePrice(result) : result;
     }
 
 }

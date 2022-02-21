@@ -30,10 +30,10 @@ class BookingTest {
         Show lionKing = new Show(List.of(), 120);
         LocalDateTime weekday = LocalDateTime.of(2022, 1, 20, 19, 0);
 
-        Booking booking = new Booking(lionKing, weekday);
+        Booking booking = Booking.createBooking(lionKing, weekday);
         assertEquals(120, booking.basePrice());
 
-        Booking premium = new PremiumBooking(lionKing, weekday, new PremiumExtra(List.of(), 50));
+        Booking premium = Booking.createPremiumBooking(lionKing, weekday, new PremiumExtra(List.of(), 50));
         assertEquals(170, premium.basePrice());
     }
 
@@ -42,10 +42,10 @@ class BookingTest {
         Show lionKing = new Show(List.of(), 120);
         LocalDateTime weekend = LocalDateTime.of(2022, 1, 15, 19, 0);
 
-        Booking booking = new Booking(lionKing, weekend);
+        Booking booking = Booking.createBooking(lionKing, weekend);
         assertEquals(138, booking.basePrice());
 
-        Booking premium = new PremiumBooking(lionKing, weekend, new PremiumExtra(List.of(), 50));
+        Booking premium = Booking.createPremiumBooking(lionKing, weekend, new PremiumExtra(List.of(), 50));
         assertEquals(188, premium.basePrice());
     }
 

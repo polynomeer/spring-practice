@@ -11,11 +11,6 @@ public class PremiumBooking extends Booking {
         this.extra = extra;
     }
 
-    @Override
-    public double basePrice() {
-        return Math.round(super.basePrice() + this.extra.getPremiumFee());
-    }
-
     public boolean hasDinner() {
         return this.extra.hasOwnProperty("dinner") && !this.isPeakDay();
     }
