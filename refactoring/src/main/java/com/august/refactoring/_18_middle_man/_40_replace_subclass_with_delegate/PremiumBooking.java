@@ -12,11 +12,6 @@ public class PremiumBooking extends Booking {
     }
 
     @Override
-    public boolean hasTalkback() {
-        return this.premiumDelegate.hasTalkback();
-    }
-
-    @Override
     public double basePrice() {
         return Math.round(super.basePrice() + this.extra.getPremiumFee());
     }
