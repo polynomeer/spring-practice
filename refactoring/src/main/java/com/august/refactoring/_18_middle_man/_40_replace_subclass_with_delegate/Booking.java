@@ -6,12 +6,23 @@ import java.time.LocalDateTime;
 public class Booking {
 
     protected Show show;
-
     protected LocalDateTime time;
+    protected PremiumDelegate premiumDelegate;
 
     public Booking(Show show, LocalDateTime time) {
         this.show = show;
         this.time = time;
+    }
+
+    public static Booking createBook(Show show, LocalDateTime time) {
+        return new Booking(show, time);
+    }
+
+    public static Booking createPremiumBooking(Show show, LocalDateTime time, PremiumExtra extra) {
+        PremiumBooking booking = new PremiumBooking(show, time, extra);
+        // PremiumDelegate로 모두 옮기고 PremiumBooking을 삭제하기 위한 중간과정에 필요한 장치
+        booking.premiumDelegate = new PremiumDelegate(booking, extra);
+        return new PremiumBooking(show, time, extra);
     }
 
     public boolean hasTalkback() {
