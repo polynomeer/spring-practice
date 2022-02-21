@@ -11,7 +11,4 @@ public class PremiumBooking extends Booking {
         this.extra = extra;
     }
 
-    public boolean hasDinner() {
-        return this.extra.hasOwnProperty("dinner") && !this.isPeakDay();
-    }
 }

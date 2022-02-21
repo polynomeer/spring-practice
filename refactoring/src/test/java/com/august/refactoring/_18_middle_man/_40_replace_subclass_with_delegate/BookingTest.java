@@ -56,8 +56,10 @@ class BookingTest {
         LocalDateTime weekend = LocalDateTime.of(2022, 1, 15, 19, 0);
         PremiumExtra premiumExtra = new PremiumExtra(List.of("dinner"), 50);
 
-        assertTrue(new PremiumBooking(lionKing, weekday, premiumExtra).hasDinner());
-        assertFalse(new PremiumBooking(lionKing, weekend, premiumExtra).hasDinner());
+        assertTrue(Booking.createPremiumBooking(lionKing, weekday, premiumExtra).hasDinner());
+        assertFalse(Booking.createPremiumBooking(lionKing, weekend, premiumExtra).hasDinner());
+        assertFalse(Booking.createBooking(lionKing, weekday).hasDinner());
+        assertFalse(Booking.createBooking(lionKing, weekend).hasDinner());
     }
 
 }
