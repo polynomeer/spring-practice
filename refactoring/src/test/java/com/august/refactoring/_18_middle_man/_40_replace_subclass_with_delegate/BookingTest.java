@@ -10,6 +10,22 @@ import static org.junit.jupiter.api.Assertions.*;
 class BookingTest {
 
     @Test
+    void talkback() {
+        Show lionKing = new Show(List.of(), 120);
+        Show aladin = new Show(List.of("talkback"), 120);
+        LocalDateTime nonPeekday = LocalDateTime.of(2022, 1, 20, 19, 0);
+        LocalDateTime peekday = LocalDateTime.of(2022, 1, 15, 19, 0);
+
+        assertFalse(new Booking(lionKing, nonPeekday).hasTalkback());
+        assertTrue(new Booking(aladin, nonPeekday).hasTalkback());
+        assertFalse(new Booking(aladin, peekday).hasTalkback());
+
+        PremiumExtra premiumExtra = new PremiumExtra(List.of(), 50);
+        assertTrue(new PremiumBooking(aladin, peekday, premiumExtra).hasTalkback());
+        assertFalse(new PremiumBooking(lionKing, peekday, premiumExtra).hasTalkback());
+    }
+
+    @Test
     void basePrice() {
         Show lionKing = new Show(List.of(), 120);
         LocalDateTime weekday = LocalDateTime.of(2022, 1, 20, 19, 0);
@@ -31,22 +47,6 @@ class BookingTest {
 
         Booking premium = new PremiumBooking(lionKing, weekend, new PremiumExtra(List.of(), 50));
         assertEquals(188, premium.basePrice());
-    }
-
-    @Test
-    void talkback() {
-        Show lionKing = new Show(List.of(), 120);
-        Show aladin = new Show(List.of("talkback"), 120);
-        LocalDateTime weekday = LocalDateTime.of(2022, 1, 20, 19, 0);
-        LocalDateTime weekend = LocalDateTime.of(2022, 1, 15, 19, 0);
-
-        assertFalse(new Booking(lionKing, weekday).hasTalkback());
-        assertTrue(new Booking(aladin, weekday).hasTalkback());
-        assertFalse(new Booking(aladin, weekend).hasTalkback());
-
-        PremiumExtra premiumExtra = new PremiumExtra(List.of(), 50);
-        assertTrue(new PremiumBooking(aladin, weekend, premiumExtra).hasTalkback());
-        assertFalse(new PremiumBooking(lionKing, weekend, premiumExtra).hasTalkback());
     }
 
     @Test
