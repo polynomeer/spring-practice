@@ -14,7 +14,7 @@ public class Booking {
         this.time = time;
     }
 
-    public static Booking createBook(Show show, LocalDateTime time) {
+    public static Booking createBooking(Show show, LocalDateTime time) {
         return new Booking(show, time);
     }
 
