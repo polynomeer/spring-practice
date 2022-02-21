@@ -11,8 +11,7 @@ public class CustomerService {
     }
 
     public int weeksDelinquent(Site site) {
-        Customer customer = site.getCustomer();
-        return customer.isUnknown() ? 0 : customer.getPaymentHistory().getWeeksDelinquentInLastYear();
+        return site.getCustomer().getPaymentHistory().getWeeksDelinquentInLastYear();
     }
 
 }
