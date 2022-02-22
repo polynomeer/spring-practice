@@ -1,15 +1,13 @@
 package com.august.refactoring._20_large_class._41_extract_superclass;
 
-public class Employee {
+public class Employee extends Party {
 
     private Integer id;
 
-    private String name;
-
     private double monthlyCost;
 
-    public double annualCost() {
-        return this.monthlyCost * 12;
+    public Employee(String name) {
+        super(name);
     }
 
     public Integer getId() {
@@ -20,7 +18,8 @@ public class Employee {
         return name;
     }
 
-    public double getMonthlyCost() {
+    @Override
+    protected double monthlyCost() {
         return monthlyCost;
     }
 }
