@@ -1,0 +1,1 @@
+package com.august.refactoring._22_data_class;

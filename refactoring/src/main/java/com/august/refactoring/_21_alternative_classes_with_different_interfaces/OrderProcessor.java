@@ -1,0 +1,14 @@
+package com.august.refactoring._21_alternative_classes_with_different_interfaces;
+
+public class OrderProcessor {
+
+    private NotificationService notificationService;
+
+    public void notifyShipping(Shipping shipping) {
+        Notification notification = Notification.newNotification(shipping.getOrder() + " is shipped")
+                .receiver(shipping.getEmail())
+                .sender("no-reply@sk.com");
+        notificationService.sendNotification(notification);
+    }
+
+}
