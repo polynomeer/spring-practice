@@ -6,6 +6,7 @@ import java.util.Optional;
 import me.august.jwttutorial.dto.UserDto;
 import me.august.jwttutorial.entity.Authority;
 import me.august.jwttutorial.entity.User;
+import me.august.jwttutorial.exception.DuplicateMemberException;
 import me.august.jwttutorial.repository.UserRepository;
 import me.august.jwttutorial.util.SecurityUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,7 +26,7 @@ public class UserService {
     @Transactional
     public UserDto signup(UserDto userDto) {
         if (userRepository.findOneWithAuthoritiesByUsername(userDto.getUsername()).orElse(null) != null) {
-            throw new RuntimeException("이미 가입되어 있는 유저입니다.");
+            throw new DuplicateMemberException("이미 가입되어 있는 유저입니다.");
         }
 
         Authority authority = Authority.builder()
