@@ -1,7 +1,6 @@
 package me.august.jwttutorial.controller;
 
 import me.august.jwttutorial.dto.UserDto;
-import me.august.jwttutorial.entity.User;
 import me.august.jwttutorial.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
