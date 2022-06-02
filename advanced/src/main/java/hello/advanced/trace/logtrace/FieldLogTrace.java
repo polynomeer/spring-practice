@@ -48,6 +48,8 @@ public class FieldLogTrace implements LogTrace {
         } else {
             log.info("[{}] {}{} time={}ms ex={}", traceId.getId(), addSpace(EX_PREFIX, traceId.getLevel()), status.getMessage(), resultTimeMs, e.toString());
         }
+
+        releaseTraceId();
     }
 
     private void releaseTraceId() {
