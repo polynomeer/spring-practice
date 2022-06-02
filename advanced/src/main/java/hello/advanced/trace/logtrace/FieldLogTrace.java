@@ -10,22 +10,22 @@ public class FieldLogTrace implements LogTrace {
     private static final String COMPLETE_PREFIX = "<--";
     private static final String EX_PREFIX = "<X-";
 
-    private TraceId traceIdHandler; // traceId 동기화, 동시성 이슈 발생
+    private TraceId traceIdHolder; // traceId 동기화, 동시성 이슈 발생
 
     @Override
     public TraceStatus begin(String message) {
         syncTraceId();
-        TraceId traceId = traceIdHandler;
+        TraceId traceId = traceIdHolder;
         Long startTimeMs = System.currentTimeMillis();
         log.info("[{}] {}{}", traceId.getId(), addSpace(START_PREFIX, traceId.getLevel()), message);
         return new TraceStatus(traceId, startTimeMs, message);
     }
 
     private void syncTraceId() {
-        if (traceIdHandler == null) {
-            traceIdHandler = new TraceId();
+        if (traceIdHolder == null) {
+            traceIdHolder = new TraceId();
         } else {
-            traceIdHandler = traceIdHandler.createNextId();
+            traceIdHolder = traceIdHolder.createNextId();
         }
     }
 
@@ -53,10 +53,10 @@ public class FieldLogTrace implements LogTrace {
     }
 
     private void releaseTraceId() {
-        if (traceIdHandler.isFirstLevel()) {
-            traceIdHandler = null; // destroy
+        if (traceIdHolder.isFirstLevel()) {
+            traceIdHolder = null; // destroy
         } else {
-            traceIdHandler = traceIdHandler.createPreviousId();
+            traceIdHolder = traceIdHolder.createPreviousId();
         }
     }
 
