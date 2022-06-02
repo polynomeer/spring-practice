@@ -1,13 +1,13 @@
-package hello.advanced.app.trace.hellotrace;
+package hello.advanced.trace.hellotrace;
 
-import hello.advanced.app.trace.TraceId;
-import hello.advanced.app.trace.TraceStatus;
+import hello.advanced.trace.TraceId;
+import hello.advanced.trace.TraceStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class HelloTraceV1 {
+public class HelloTraceV2 {
 
     private static final String START_PREFIX = "-->";
     private static final String COMPLETE_PREFIX = "<--";
@@ -15,6 +15,13 @@ public class HelloTraceV1 {
 
     public TraceStatus begin(String message) {
         TraceId traceId = new TraceId();
+        Long startTimeMs = System.currentTimeMillis();
+        log.info("[{}] {}{}", traceId.getId(), addSpace(START_PREFIX, traceId.getLevel()), message);
+        return new TraceStatus(traceId, startTimeMs, message);
+    }
+
+    public TraceStatus beginSync(TraceId beforeTraceId, String message) {
+        TraceId traceId = beforeTraceId.createNextId(); // traceId 유지, level 증가
         Long startTimeMs = System.currentTimeMillis();
         log.info("[{}] {}{}", traceId.getId(), addSpace(START_PREFIX, traceId.getLevel()), message);
         return new TraceStatus(traceId, startTimeMs, message);
