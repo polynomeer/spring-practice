@@ -1,4 +1,4 @@
-package hello.proxy.config.v3_proxyfactory.advice;
+package hello.proxy.config.v3_proxyfactory;
 
 import hello.proxy.app.v1.OrderControllerV1Impl;
 import hello.proxy.app.v1.OrderRepositoryV1Impl;
@@ -6,6 +6,7 @@ import hello.proxy.app.v1.OrderServiceV1Impl;
 import hello.proxy.app.v2.OrderControllerV2;
 import hello.proxy.app.v2.OrderRepositoryV2;
 import hello.proxy.app.v2.OrderServiceV2;
+import hello.proxy.config.v3_proxyfactory.advice.LogTraceAdvice;
 import hello.proxy.trace.logtrace.LogTrace;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.Advisor;
