@@ -1,4 +1,4 @@
-package com.example.graphql;
+package com.example.graphql.book;
 
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;

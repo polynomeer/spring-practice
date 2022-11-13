@@ -1,4 +1,4 @@
-package com.example.graphql;
+package com.example.graphql.book;
 
 import java.util.Arrays;
 import java.util.List;
