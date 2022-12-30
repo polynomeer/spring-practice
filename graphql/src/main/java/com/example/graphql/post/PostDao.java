@@ -11,6 +11,20 @@ public class PostDao {
         this.posts = posts;
     }
 
+    public Post getById(String id) {
+        return posts.stream()
+                .filter(post -> post.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public Post getByTitle(String title) {
+        return posts.stream()
+                .filter(post -> post.getTitle().equals(title))
+                .findFirst()
+                .orElse(null);
+    }
+
     public List<Post> getRecentPosts(int count, int offset) {
         return posts.stream()
                 .skip(offset)

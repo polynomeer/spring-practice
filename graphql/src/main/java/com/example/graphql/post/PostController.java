@@ -25,6 +25,16 @@ public class PostController {
         return postDao.getRecentPosts(count, offset);
     }
 
+    @QueryMapping
+    public Post getById(@Argument String id) {
+        return postDao.getById(id);
+    }
+
+    @QueryMapping
+    public Post getByTitle(@Argument String title) {
+        return postDao.getByTitle(title);
+    }
+
     @SchemaMapping
     public Writer writer(Post post) {
         return writerDao.getWriter(post.getWriterId());
