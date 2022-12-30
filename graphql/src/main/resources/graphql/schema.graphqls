@@ -1,0 +1,42 @@
+# Book Store example data
+type Book {
+    id: ID
+    name: String
+    pageCount: Int
+    writer: Author
+}
+
+type Author {
+    id: ID
+    firstName: String
+    lastName: String
+}
+
+# Post example data
+type Post {
+    id: ID!
+    title: String!
+    text: String!
+    category: String
+    writer: Writer!
+    first_writer: Writer!
+}
+
+type Writer {
+    id: ID!
+    name: String!
+    thumbnail: String
+    posts: [Post]!
+}
+
+# The Root Query for the application
+type Query {
+    bookById(id: ID): Book
+    recentPosts(count: Int, offset: Int): [Post]!
+    getByTitle(title: String): Post
+}
+
+# The Root Mutation for the application
+type Mutation {
+    createPost(title: String!, text: String!, category: String) : Post!
+}
