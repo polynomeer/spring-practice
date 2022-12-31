@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.Optional;
+import java.util.List;
 
 @Controller
 @Slf4j // 로깅을 위한 애너테이션
@@ -52,5 +52,18 @@ public class ArticleController {
 
         // 3. 보여줄 페이지를 설정한다.
         return "articles/show";
+    }
+
+    @GetMapping("/articles")
+    public String index(Model model) {
+
+        List<Article> articles = articleRepository.findAll();
+        // 1. 모든 Article을 가져온다.
+
+        // 2. 가져온 Article 묶음을 뷰로 전달한다.
+        model.addAttribute("articleList", articles);
+
+        // 3. 뷰 페이지를 설정한다.
+        return "articles/index";
     }
 }
