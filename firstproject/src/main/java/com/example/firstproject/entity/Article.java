@@ -5,12 +5,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity // DB가 해당 객체를 인식하도록 함
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 @ToString
 public class Article {
 
