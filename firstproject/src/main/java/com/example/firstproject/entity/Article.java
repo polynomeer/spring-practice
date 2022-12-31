@@ -4,8 +4,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity // DB가 해당 객체를 인식하도록 함
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class Article {
 
     @Id // 대표값을 지정, like 주민등록번호
@@ -17,21 +23,4 @@ public class Article {
 
     @Column
     private String content;
-
-    public Article(String title, String content) {
-        this.title = title;
-        this.content = content;
-    }
-
-    public Article() {
-    }
-
-    @Override
-    public String toString() {
-        return "Article{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                '}';
-    }
 }
