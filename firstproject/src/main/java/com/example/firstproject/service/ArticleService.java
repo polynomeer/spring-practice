@@ -6,8 +6,10 @@ import com.example.firstproject.repository.ArticleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service // 서비스 선언, 서비스 객체를 스프링 컨테이너에 생성
@@ -64,5 +66,25 @@ public class ArticleService {
         // 3. 대상 삭제 후 응답 반환
         articleRepository.delete(target);
         return target;
+    }
+
+    @Transactional
+    public List<Article> createArticles(List<ArticleForm> dtos) {
+
+        // 1. dto 묶음을 entity 묶음으로 변환
+        List<Article> articles = dtos.stream()
+                .map(ArticleForm::toEntity)
+                .collect(Collectors.toList());
+
+        // 2. entity 묶음을 DB로 저장
+        articles.stream()
+                .forEach(article -> articleRepository.save(article));
+
+        // 3. 강제로 예외 발생
+        articleRepository.findById(-1L)
+                .orElseThrow(() -> new IllegalArgumentException("결재 실패"));
+
+        // 4. 결과값 반환
+        return articles;
     }
 }
