@@ -12,6 +12,9 @@ class ChefTest {
     @Autowired
     IngredientFactory ingredientFactory;
 
+    @Autowired
+    Chef chef;
+
     @Test
     void 돈가스_요리하기() {
         // 준비
