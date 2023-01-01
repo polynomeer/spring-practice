@@ -1,10 +1,16 @@
 package com.example.firstproject.ioc;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 class ChefTest {
+
+    @Autowired
+    IngredientFactory ingredientFactory;
 
     @Test
     void 돈가스_요리하기() {
