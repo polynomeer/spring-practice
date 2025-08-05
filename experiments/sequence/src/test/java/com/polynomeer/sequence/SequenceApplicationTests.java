@@ -1,10 +1,10 @@
-package com.polynomeer.experiments;
+package com.polynomeer.sequence;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ExperimentsApplicationTests {
+class SequenceApplicationTests {
 
     @Test
     void contextLoads() {

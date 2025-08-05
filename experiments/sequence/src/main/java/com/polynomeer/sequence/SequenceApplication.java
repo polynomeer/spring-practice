@@ -1,13 +1,13 @@
-package com.polynomeer.experiments;
+package com.polynomeer.sequence;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ExperimentsApplication {
+public class SequenceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ExperimentsApplication.class, args);
+        SpringApplication.run(SequenceApplication.class, args);
     }
 
 }
