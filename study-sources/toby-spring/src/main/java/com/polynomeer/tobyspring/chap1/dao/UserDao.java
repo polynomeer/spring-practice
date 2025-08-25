@@ -2,9 +2,11 @@ package com.polynomeer.tobyspring.chap1.dao;
 
 import com.polynomeer.tobyspring.chap1.domain.User;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
-public class UserDao {
+public abstract class UserDao {
 
     public void add(User user) throws Exception {
         Connection c = getConnection();
@@ -43,13 +45,7 @@ public class UserDao {
     }
 
     /**
-     * 중복 제거 → DB 연결을 한 메소드로 모음
-     * (아직도 드라이버/URL/계정이 하드코딩된 상태)
+     * 팩토리 메소드: 서브클래스가 구현해야 함
      */
-    protected Connection getConnection() throws Exception {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        return DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/springbook?characterEncoding=UTF-8&serverTimezone=UTC",
-                "spring", "book");
-    }
+    protected abstract Connection getConnection() throws Exception;
 }

@@ -1,11 +1,12 @@
 package com.polynomeer.tobyspring.chap1;
 
 import com.polynomeer.tobyspring.chap1.dao.UserDao;
+import com.polynomeer.tobyspring.chap1.dao.UserDaoMysql;
 import com.polynomeer.tobyspring.chap1.domain.User;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        UserDao dao = new UserDao();
+        UserDao dao = new UserDaoMysql();
 
         User user = new User();
         user.setId("whiteship");
