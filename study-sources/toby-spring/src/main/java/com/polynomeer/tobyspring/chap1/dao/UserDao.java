@@ -6,11 +6,8 @@ import java.sql.*;
 
 public class UserDao {
 
-    public void add(User user) throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection c = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/springbook?characterEncoding=UTF-8&serverTimezone=UTC",
-                "spring", "book");
+    public void add(User user) throws Exception {
+        Connection c = getConnection();
 
         PreparedStatement ps = c.prepareStatement(
                 "insert into users(id, name, password) values(?,?,?)");
@@ -23,11 +20,8 @@ public class UserDao {
         c.close();
     }
 
-    public User get(String id) throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection c = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/springbook?characterEncoding=UTF-8&serverTimezone=UTC",
-                "spring", "book");
+    public User get(String id) throws Exception {
+        Connection c = getConnection();
 
         PreparedStatement ps = c.prepareStatement(
                 "select * from users where id = ?");
@@ -46,5 +40,16 @@ public class UserDao {
         c.close();
 
         return user;
+    }
+
+    /**
+     * 중복 제거 → DB 연결을 한 메소드로 모음
+     * (아직도 드라이버/URL/계정이 하드코딩된 상태)
+     */
+    protected Connection getConnection() throws Exception {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        return DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/springbook?characterEncoding=UTF-8&serverTimezone=UTC",
+                "spring", "book");
     }
 }
