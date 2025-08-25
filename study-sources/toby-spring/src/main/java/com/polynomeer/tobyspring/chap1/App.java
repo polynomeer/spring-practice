@@ -1,12 +1,17 @@
 package com.polynomeer.tobyspring.chap1;
 
 import com.polynomeer.tobyspring.chap1.dao.UserDao;
-import com.polynomeer.tobyspring.chap1.dao.UserDaoMysql;
 import com.polynomeer.tobyspring.chap1.domain.User;
+import com.polynomeer.tobyspring.chap1.factory.ConnectionMaker;
+import com.polynomeer.tobyspring.chap1.factory.MysqlConnectionMaker;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        UserDao dao = new UserDaoMysql();
+        // 1) MySQL로 테스트한다면
+        ConnectionMaker cm = new MysqlConnectionMaker();
+        // 2) H2로 빠르게 돌리고 싶다면
+        // ConnectionMaker cm = new H2ConnectionMaker();
+        UserDao dao = new UserDao(cm);
 
         User user = new User();
         user.setId("whiteship");

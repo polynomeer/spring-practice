@@ -1,15 +1,16 @@
-package com.polynomeer.tobyspring.chap1.dao;
+package com.polynomeer.tobyspring.chap1.factory;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
-public class UserDaoMysql extends UserDao {
-
+public class MysqlConnectionMaker implements ConnectionMaker {
     @Override
-    protected Connection getConnection() throws Exception {
+    public Connection makeConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         return DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/springbook?characterEncoding=UTF-8&serverTimezone=UTC",
-                "spring", "book");
+                "spring", "book"
+        );
     }
 }

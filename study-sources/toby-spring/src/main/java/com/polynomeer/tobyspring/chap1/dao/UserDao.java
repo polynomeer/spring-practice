@@ -1,51 +1,44 @@
 package com.polynomeer.tobyspring.chap1.dao;
 
 import com.polynomeer.tobyspring.chap1.domain.User;
+import com.polynomeer.tobyspring.chap1.factory.ConnectionMaker;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public abstract class UserDao {
+public class UserDao {
+
+    private final ConnectionMaker connectionMaker;
+
+    public UserDao(ConnectionMaker connectionMaker) {
+        this.connectionMaker = connectionMaker;
+    }
 
     public void add(User user) throws Exception {
-        Connection c = getConnection();
-
-        PreparedStatement ps = c.prepareStatement(
-                "insert into users(id, name, password) values(?,?,?)");
-        ps.setString(1, user.getId());
-        ps.setString(2, user.getName());
-        ps.setString(3, user.getPassword());
-        ps.executeUpdate();
-
-        ps.close();
-        c.close();
+        try (Connection c = connectionMaker.makeConnection();
+             PreparedStatement ps = c.prepareStatement(
+                     "insert into users(id, name, password) values(?,?,?)")) {
+            ps.setString(1, user.getId());
+            ps.setString(2, user.getName());
+            ps.setString(3, user.getPassword());
+            ps.executeUpdate();
+        }
     }
 
     public User get(String id) throws Exception {
-        Connection c = getConnection();
-
-        PreparedStatement ps = c.prepareStatement(
-                "select * from users where id = ?");
-        ps.setString(1, id);
-
-        ResultSet rs = ps.executeQuery();
-        rs.next();
-
-        User user = new User();
-        user.setId(rs.getString("id"));
-        user.setName(rs.getString("name"));
-        user.setPassword(rs.getString("password"));
-
-        rs.close();
-        ps.close();
-        c.close();
-
-        return user;
+        try (Connection c = connectionMaker.makeConnection();
+             PreparedStatement ps = c.prepareStatement(
+                     "select id, name, password from users where id = ?")) {
+            ps.setString(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (!rs.next()) return null;
+                User u = new User();
+                u.setId(rs.getString("id"));
+                u.setName(rs.getString("name"));
+                u.setPassword(rs.getString("password"));
+                return u;
+            }
+        }
     }
-
-    /**
-     * 팩토리 메소드: 서브클래스가 구현해야 함
-     */
-    protected abstract Connection getConnection() throws Exception;
 }
