@@ -6,6 +6,7 @@ import com.polynomeer.tobyspring.chap1.factory.ConnectionMaker;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class UserDao {
 
@@ -39,6 +40,22 @@ public class UserDao {
                 u.setPassword(rs.getString("password"));
                 return u;
             }
+        }
+    }
+
+    public void deleteAll() throws Exception {
+        try (Connection c = connectionMaker.makeConnection();
+             Statement st = c.createStatement()) {
+            st.executeUpdate("delete from users");
+        }
+    }
+
+    public int getCount() throws Exception {
+        try (Connection c = connectionMaker.makeConnection();
+             Statement st = c.createStatement();
+             ResultSet rs = st.executeQuery("select count(*) from users")) {
+            rs.next();
+            return rs.getInt(1);
         }
     }
 }
