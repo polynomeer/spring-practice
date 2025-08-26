@@ -3,13 +3,19 @@ package com.polynomeer.tobyspring.chap1;
 import com.polynomeer.tobyspring.chap1.dao.UserDao;
 import com.polynomeer.tobyspring.chap1.domain.User;
 import com.polynomeer.tobyspring.chap1.factory.DaoFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        DaoFactory factory = new DaoFactory();
+        // 1) 직접 ApplicationContext 생성 (DaoFactory 설정 등록)
+        ApplicationContext ctx =
+                new AnnotationConfigApplicationContext(DaoFactory.class);
 
-        // IoC 포인트: 클라이언트는 “공장”만 알고, 내부 조립은 모름
-        UserDao userDao = factory.userDao(factory.dataSource());
+        // 2) UserDao 빈 가져오기
+        UserDao userDao = ctx.getBean(UserDao.class);
+
+        DaoFactory factory = new DaoFactory();
 
         // 실습 편의: 테이블 생성
         Schema.createUsers(factory.dataSource());
