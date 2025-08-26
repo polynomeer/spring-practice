@@ -9,10 +9,10 @@ public class App {
         DaoFactory factory = new DaoFactory();
 
         // IoC 포인트: 클라이언트는 “공장”만 알고, 내부 조립은 모름
-        UserDao userDao = factory.userDao();
+        UserDao userDao = factory.userDao(factory.dataSource());
 
         // 실습 편의: 테이블 생성
-        Schema.createUsers(factory.connectionMaker());
+        Schema.createUsers(factory.dataSource());
 
         // 동작 검증
         userDao.deleteAll();
