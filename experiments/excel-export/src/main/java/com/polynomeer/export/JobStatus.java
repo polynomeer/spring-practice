@@ -1,3 +1,3 @@
-package com.polynomeer.excelexport;
+package com.polynomeer.export;
 
 enum JobStatus {PENDING, RUNNING, SUCCEEDED, FAILED}

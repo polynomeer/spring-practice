@@ -1,4 +1,4 @@
-package com.polynomeer.excelexport;
+package com.polynomeer.export;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

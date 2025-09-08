@@ -1,4 +1,4 @@
-package com.polynomeer.excelexport;
+package com.polynomeer.export;
 
 class DummyS3Storage implements S3Storage {
     // Replace with AWS SDK: S3Client.putObject + generatePresignedUrl

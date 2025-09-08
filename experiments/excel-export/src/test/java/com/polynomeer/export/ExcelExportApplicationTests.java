@@ -1,4 +1,4 @@
-package com.polynomeer.excelexport;
+package com.polynomeer.export;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

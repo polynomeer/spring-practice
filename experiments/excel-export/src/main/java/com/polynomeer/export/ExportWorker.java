@@ -1,4 +1,4 @@
-package com.polynomeer.excelexport;
+package com.polynomeer.export;
 
 import org.springframework.scheduling.annotation.Async;
 

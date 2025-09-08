@@ -1,4 +1,4 @@
-package com.polynomeer.excelexport;
+package com.polynomeer.export;
 
 class AsyncExportQueue implements ExportQueue {
     private final ExportWorker worker;

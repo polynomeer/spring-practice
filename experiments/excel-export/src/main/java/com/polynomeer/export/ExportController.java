@@ -1,4 +1,4 @@
-package com.polynomeer.excelexport;
+package com.polynomeer.export;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
