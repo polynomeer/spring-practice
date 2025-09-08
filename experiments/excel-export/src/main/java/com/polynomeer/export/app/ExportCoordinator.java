@@ -1,16 +1,20 @@
-package com.polynomeer.export;
+package com.polynomeer.export.app;
+
+import com.polynomeer.export.domain.ExportJob;
+import com.polynomeer.export.infra.ExportQueue;
+import com.polynomeer.export.web.ExportRequest;
 
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
-class ExportCoordinator {
+public class ExportCoordinator {
     private final ExportDecisionService decisionService;
     private final PreGeneratedService preGeneratedService;
     private final ExportQueue queue;
     private final Map<String, ExportJob> jobs = new ConcurrentHashMap<>();
 
-    ExportCoordinator(ExportDecisionService decisionService, PreGeneratedService preGeneratedService, ExportQueue queue) {
+    public ExportCoordinator(ExportDecisionService decisionService, PreGeneratedService preGeneratedService, ExportQueue queue) {
         this.decisionService = decisionService;
         this.preGeneratedService = preGeneratedService;
         this.queue = queue;

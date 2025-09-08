@@ -1,5 +1,9 @@
-package com.polynomeer.export;
+package com.polynomeer.export.infra;
 
+import com.polynomeer.export.app.PreGeneratedService;
+import com.polynomeer.export.domain.ExportJob;
+import com.polynomeer.export.domain.JobStatus;
+import com.polynomeer.export.web.ExportRequest;
 import org.springframework.scheduling.annotation.Async;
 
 import java.time.Duration;
@@ -9,13 +13,13 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
-class ExportWorker {
+public class ExportWorker {
     private final ExcelGenerator generator;
     private final S3Storage storage;
     private final CacheService cache;
     private final PreGeneratedService preGeneratedService;
 
-    ExportWorker(ExcelGenerator generator, S3Storage storage, CacheService cache, PreGeneratedService preGeneratedService) {
+    public ExportWorker(ExcelGenerator generator, S3Storage storage, CacheService cache, PreGeneratedService preGeneratedService) {
         this.generator = generator;
         this.storage = storage;
         this.cache = cache;

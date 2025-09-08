@@ -1,17 +1,19 @@
-package com.polynomeer.export;
+package com.polynomeer.export.app;
 
+import com.polynomeer.export.infra.CacheService;
+import com.polynomeer.export.web.ExportRequest;
 import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-class ExportDecisionService {
+public class ExportDecisionService {
     private final CacheService cache;
     private final Map<String, Integer> fieldWeights; // e.g., heavy joins, cardinality, etc.
     private final long queueThresholdSec; // if predicted > threshold, queue; else serve cache if available
 
-    ExportDecisionService(CacheService cache) {
+    public ExportDecisionService(CacheService cache) {
         this.cache = cache;
         this.fieldWeights = defaultWeights();
         this.queueThresholdSec = 8; // tune per environment

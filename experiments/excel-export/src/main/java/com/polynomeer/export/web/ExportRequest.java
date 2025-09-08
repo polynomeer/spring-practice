@@ -1,12 +1,12 @@
-package com.polynomeer.export;
+package com.polynomeer.export.web;
 
 import java.util.Map;
 
-record ExportRequest(
+public record ExportRequest(
         Map<String, String> filters,
         String requestedBy
 ) {
-    boolean isFullExport() {
+    public boolean isFullExport() {
         return filters == null || filters.isEmpty();
     }
 }

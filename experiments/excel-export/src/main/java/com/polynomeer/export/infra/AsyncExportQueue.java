@@ -1,9 +1,11 @@
-package com.polynomeer.export;
+package com.polynomeer.export.infra;
 
-class AsyncExportQueue implements ExportQueue {
+import com.polynomeer.export.domain.ExportJob;
+
+public class AsyncExportQueue implements ExportQueue {
     private final ExportWorker worker;
 
-    AsyncExportQueue(ExportWorker worker) {
+    public AsyncExportQueue(ExportWorker worker) {
         this.worker = worker;
     }
 

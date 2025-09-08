@@ -1,8 +1,8 @@
-package com.polynomeer.export;
+package com.polynomeer.export.infra;
 
 import java.time.Duration;
 
-interface CacheService {
+public interface CacheService {
     /**
      * Return S3 URL if cached, else null
      */

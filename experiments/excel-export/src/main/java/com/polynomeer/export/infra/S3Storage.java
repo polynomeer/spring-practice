@@ -1,5 +1,5 @@
-package com.polynomeer.export;
+package com.polynomeer.export.infra;
 
-interface S3Storage {
+public interface S3Storage {
     String upload(String bucket, String key, byte[] bytes, String contentType) throws Exception;
 }

@@ -1,5 +1,9 @@
-package com.polynomeer.export;
+package com.polynomeer.export.config;
 
+import com.polynomeer.export.app.ExportCoordinator;
+import com.polynomeer.export.app.ExportDecisionService;
+import com.polynomeer.export.app.PreGeneratedService;
+import com.polynomeer.export.infra.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -19,7 +23,6 @@ class WiringConfig {
     S3Storage s3Storage() {
         return new DummyS3Storage();
     }
-
 
     @Bean
     PreGeneratedService preGeneratedService(ExcelGenerator g, S3Storage s) {

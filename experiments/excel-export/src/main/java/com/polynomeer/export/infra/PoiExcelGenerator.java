@@ -1,9 +1,11 @@
-package com.polynomeer.export;
+package com.polynomeer.export.infra;
+
+import com.polynomeer.export.web.ExportRequest;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 
-class PoiExcelGenerator implements ExcelGenerator {
+public class PoiExcelGenerator implements ExcelGenerator {
     @Override
     public byte[] generate(ExportRequest request) throws Exception {
         // Minimal Apache POI implementation to keep sample self-contained without external deps.

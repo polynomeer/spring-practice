@@ -1,5 +1,8 @@
-package com.polynomeer.export;
+package com.polynomeer.export.app;
 
+import com.polynomeer.export.infra.ExcelGenerator;
+import com.polynomeer.export.infra.S3Storage;
+import com.polynomeer.export.web.ExportRequest;
 import org.springframework.scheduling.annotation.Async;
 
 import java.time.Duration;
@@ -8,14 +11,14 @@ import java.time.LocalDate;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-class PreGeneratedService {
+public class PreGeneratedService {
     private final ExcelGenerator generator;
     private final S3Storage storage;
     private volatile String latestFullUrl; // most recent successful URL
     private volatile Instant latestFullGeneratedAt;
 
 
-    PreGeneratedService(ExcelGenerator generator, S3Storage storage) {
+    public PreGeneratedService(ExcelGenerator generator, S3Storage storage) {
         this.generator = generator;
         this.storage = storage;
     }

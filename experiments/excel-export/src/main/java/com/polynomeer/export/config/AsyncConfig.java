@@ -1,4 +1,4 @@
-package com.polynomeer.export;
+package com.polynomeer.export.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

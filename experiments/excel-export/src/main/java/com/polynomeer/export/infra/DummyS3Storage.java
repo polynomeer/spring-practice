@@ -1,6 +1,6 @@
-package com.polynomeer.export;
+package com.polynomeer.export.infra;
 
-class DummyS3Storage implements S3Storage {
+public class DummyS3Storage implements S3Storage {
     // Replace with AWS SDK: S3Client.putObject + generatePresignedUrl
     @Override
     public String upload(String bucket, String key, byte[] bytes, String contentType) {

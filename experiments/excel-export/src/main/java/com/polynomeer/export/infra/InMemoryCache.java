@@ -1,11 +1,11 @@
-package com.polynomeer.export;
+package com.polynomeer.export.infra;
 
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-class InMemoryCache implements CacheService {
+public class InMemoryCache implements CacheService {
     static class Entry {
         String url;
         Instant expireAt;
