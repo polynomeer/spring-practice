@@ -1,2 +1,5 @@
 rootProject.name = 'netty-bench'
+include 'netty-server'
+include 'tomcat-server'
+include 'bench-client'
 
